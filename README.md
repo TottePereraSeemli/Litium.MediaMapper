@@ -1,11 +1,35 @@
+# Introduction
+
+Welcome to the documentation for Seemli Litium MediaMapper. This tool is designed to facilitate flexible mapping of media files, tailored to Litium’s data model. Before diving into the configuration steps and features, it is essential to understand a few core concepts that are fundamental to using this tool effectively.
+
+## Core Concepts
+
+### Mapping
+Mapping refers to the process of associating media files with specific elements or fields within Litium’s data structure. This allows users to organize and integrate media files within the system effectively, ensuring that each file is located and utilized appropriately.
+
+### Schema
+A Schema is a structured framework used in the tool that defines how media files should be named and organized. It is built using placeholders and determines the format in which files are imported and recognized by the system. Adhering to the correct schema is crucial for accurate and effective mapping of media files.
+
+### Placeholders
+Placeholders are symbolic representations used within the schema to denote specific segments or components of a file name. They act as variable containers that are replaced with actual data during the mapping process. Placeholders are instrumental in building the schema, allowing users to create flexible and dynamic naming conventions. For example, `{id}` is a placeholder that could be replaced by the actual id of a file when it is mapped.
+
+### Configuration
+Configuration is the process of setting up the mapping parameters, schema, and other specifications that determine how the media files are processed, mapped, and integrated within Litium. Proper configuration is essential to align the tool’s functionality with user needs and system requirements.
+
+### Root Folder & Destination Folder
+- **Root Folder:** It is the initial folder where configurations are active, and new files are uploaded for mapping.
+- **Destination Folder:** It is where the files will reside post-mapping. It is defined during configuration, determining the hierarchical structure and location of the mapped files within the system.
+
+### Media Template & Media Fields
+- **Media Template:** It is a predefined structure that dictates how the imported file should be formatted and displayed within Litium.
+- **Media Fields:** These are specific fields within the media template where placeholders can be mapped, allowing for the incorporation of varied data types like Text, LimitedText, MultirowText, and MultiField in the media file.
+
+By understanding these core concepts, users can leverage the full capabilities of the Seemli Litium MediaMapper, configuring and managing media files with precision and flexibility within the Litium environment.
+
+Now, let’s proceed to the detailed sections to understand how to implement these concepts and effectively use Seemli Litium MediaMapper.
+
+
 # Seemli Litium MediaMapper
-Documentation site for Seemlis Litium Media mapper. The mapper that is fully flexible with Litiums datamodel, and is 100% configurable by you, the user.
-No need to ask a developer to add a specific configuration to suite your changing needs.
-
-*Note:*
-
-*Mapping is triggered by uploading of new files. If you happen to upload to the wrong folder, a mapping will **not** be triggered by simply moving the files to the correct folder. Instead remove the files and upload them again.*
-
 
 ### Table of content
 
@@ -23,6 +47,7 @@ No need to ask a developer to add a specific configuration to suite your changin
 - [Placeholders](#placeholders)
     - [System placeholders](#system-placeholders)
     - [User placeholders](#user-placeholders)
+
 
 # Mapper types
 This product supports the following types of mapping
@@ -45,36 +70,68 @@ These are the general steps that can be configured. Note that the different Mapp
 ## Id
 Placeholder: `{id}`
 
-The configuration id is required and must be in your schema. This is how the mapper will know what configuration to use for the importing file.
+You must include the configuration id in your schema. This lets the mapper know which configuration to use when importing a file.
 
 Example:
 
-I have a configuration with `id = disp`
-
-I have a schema like `{id}_{variantid}_{name}`
-
-I have a file that i have renamed to fit the schema `disp_variant1_a nice name.jpg`
+We have a configuration with `id = disp`\
+We have a schema like `{id}_{variantid}_{name}`\
+We have a file that i have renamed to fit the schema `disp_variant1_a nice name.jpg`
 
 The mapper will now match the `{id}` placeholder with the importing file and use that configuration.
 
 ## Delimiter
-The delimiter is simply the character that is put in between the schema placeholders.
+The delimiter is the character used between schema placeholders.
 
 Example:
 
-I have a delimiter like `_`
-
-Then my schema will look like `{id}_{variantid}_{name}`
-
+We have a delimiter like `_`\
+Then our schema will look like `{id}_{variantid}_{name}`\
 And the name of the file again, could look like: `disp_variant1_a nice name.jpg`
 
 ## Schema
-The reason for having the schema builder, is so that you have 100% flexibility in how you name your files to match the mapping to be made.
+The schema serves as the blueprint for your file naming convention, allowing the tool to correctly identify and map each file based on its name. It is constructed using [placeholders](#placeholders), which represent the different components of the file name. The effectiveness of your mapping process heavily relies on correctly building your schema.
 
-The schema is build using placeholders. There are pre existing placeholders called system placeholders, and then there are user placeholders. Read about them [here](#placeholders)
+### Using Placeholders in Schema
+#### System Placeholders
+System placeholders are predefined and have specific meanings and functionalities within the tool. For instance, `{id}` represents the configuration ID, and `{name}` represents the name of the file. 
+
+- **Example with `{id}` Placeholder:**
+    If your schema is `{id}_{variantid}_{name}`, and you have a file named `disp_variant1_productname.jpg`, the `{id}` placeholder will be replaced by `disp`.
+
+- **Example with `{name}` Placeholder:**
+    For a schema like `{id}_{variantid}_{name}`, a file named `disp_variant1_productname.jpg` will have `{name}` replaced by `productname`.
+
+#### User Placeholders
+User placeholders are created by you to add flexibility and customization to your schema. You can create a user placeholder to represent any specific data point or identifier in your file name.
+
+- **Example of Creating a User Placeholder:**
+    If you need a placeholder for a specific product attribute, like color, you can create a user placeholder `{color}`. 
+    For a schema like `{id}_{color}_{name}`, a file named `disp_red_productname.jpg` will map `red` to `{color}`.
+
+- **Example of Using Multiple User Placeholders:**
+    You can combine multiple user placeholders to create complex schemas.
+    Schema: `{id}_{color}_{size}_{name}`
+    File: `disp_red_large_productname.jpg`
+    Here, `{color}` will be `red` and `{size}` will be `large`.
+
+### Tips for Building Effective Schemas
+1. **Be Consistent:**
+   Maintain a consistent naming convention across all files to avoid mapping errors.
+   
+2. **Use Descriptive Placeholders:**
+   Choose placeholder names that accurately represent the data they hold, making the schema intuitive and easy to understand.
+
+3. **Test Your Schema:**
+   Before implementing a new schema, test it with a few files to ensure that all placeholders are working as expected and the files are mapped correctly.
+
+4. **Optimize for Scalability:**
+   Construct your schema in a way that can easily accommodate new placeholders and changes in file naming conventions.
+
+By being very careful and paying attention to every detail, you can create an accurate and flexible mapping of your media files to meet your unique needs and preferences.
 
 ## Root folder
-The root folder, is the folder in which the configuration is active. Only in this folder will the mapping for the configuration take place. So make sure that you upload your files in the correct folder.
+The configuration is active only in the root folder. Ensure you upload your files to this folder for proper mapping.
 
 The folders are fetched from Litium, so if you wish to create a new folder, you need to do so in Litium BO, and then reload the configuration.
 
@@ -93,23 +150,26 @@ This section is similar to when you build your schema. You can make use of the p
 
 Example:
 
-**Root folder:** `Product images`
-
-**Path:** `{variantid}/{id}/temp/{myplaceholder}`
-
-**Schema:** `{id}_{variantid}_{myplaceholder}_{name}`
-
+**Root folder:** `Product images`\
+**Path:** `{variantid}/{id}/temp/{myplaceholder}`\
+**Schema:** `{id}_{variantid}_{myplaceholder}_{name}`\
 **file name on import:** `disp_variant1_123_nice file name.jpg`
 
 The file will then end up in the folder:
 ```
-- root
--- Product images
---- variant1
----- disp
------ temp
------- 123
-------- nice file name.jpg
++ root
+  |
+  +-- Product images
+      |
+      +-- variant1
+          |
+          +-- disp
+              |
+              +-- temp
+                  |
+                  +-- 123
+                      |
+                      +-- nice file name.jpg
 ```
 
 *Note:*
@@ -131,7 +191,7 @@ nice file name.jpg
 nice file name1.jpg
 ```
 
-An import runs on a file with name `nice file name.jpg`, it will therefore be renamed to `nice file name2.jpg`
+If an import runs on a file named `nice file name.jpg`, it will be renamed to `nice file name2.jpg`
 
 ## Media template
 
@@ -141,9 +201,7 @@ Select the media template for which you want the imported file to have
 
 If you want any mapping of placeholders to fields in the media template, this is where you will do that.
 
-As of today the mapper only supports fields of types:
-
-`Text`, `LimitedText`, `MultirowText`, `MultiField`
+Currently, the mapper supports only `Text`, `LimitedText`, `MultirowText`, and `MultiField` field types.
 
 **Multi fields:** That includes a field that are of any field type that you see above.
 
