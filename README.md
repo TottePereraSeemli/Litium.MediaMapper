@@ -262,6 +262,7 @@ There are pre existing placeholders called system placeholders, and then there a
 - `{variantid}`
 - `{baseproductid}`
 - `{file}`
+- `{sort}`
 
 #### {id}
 
@@ -289,6 +290,19 @@ The `{file}` placeholder is linked to the actual file itself. There are not many
 
 You are creating a configuration that will map files to a Multi field.
 [See example here](./examples/multifield_configuration.md)
+
+#### {sort}
+The `{sort}` placeholder is used to be able to set a sorting when mapping to an array.
+\
+It's zero-index based, meaning the first place in the array is index 0, second is 1, and so on.
+\
+For example a mapping to display images could look like:
+
+**Schema:** `{variantid}_{id}_{sort}`
+\
+**filename:** `artnr123_disp_0.jpg`
+
+The above configuration will make the file end up first among the display images for variant `artnr123`
 
 ## User placeholders
 
