@@ -304,6 +304,8 @@ For example a mapping to display images could look like:
 
 The above configuration will make the file end up first among the display images for variant `artnr123`
 
+**If no sorting is in the schema, and the mapping is for an array entity (display images, array pointers, etc) then a default value of 0 will be used, which means it will be placed first in the array**
+
 ## User placeholders
 
 The user placeholders are created by you and mapped by you. Maybe you need to map a ceratin value to a specific field in a multi field, or a field on the field template, or maybe use it in the destination folder path.
